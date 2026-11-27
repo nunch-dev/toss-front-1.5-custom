@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "requiresExplicitUserApproval": true,
+  "status": "host-invocation-verified-and-cleaned",
+  "bundleOrRightInstalled": false,
+  "cleanupCompleted": true,
+  "hostInvocationVerified": true,
+  "probeLookupStatus": 0,
+  "probeAuthorizationStatus": -60005,
+  "previousProbeLookupStatus": -60008,
+  "runnerSha256": "cba92f0352307c50702b36174b80661b49615b5ba9f4a5bc3e197f6645bf1efd",
+  "sharedStage": {
+    "path": "/Users/Shared/plf02wh-auth-probe-20261120",
+    "files": ["PlfAuthProbe.bundle", "run-probe"],
+    "removed": true
+  },
+  "scope": "isolated-authorization-plugin-invocation",
+  "bundle": {
+    "source": "private/macos-auth-probe-20261120/PlfAuthProbe.bundle",
+    "destination": "/Library/Security/SecurityAgentPlugins/PlfAuthProbe.bundle",
+    "identifier": "org.plf02wh.remoteunlock.authprobe",
+    "executable": "Contents/MacOS/PlfAuthProbe",
+    "executableSha256": "f8db53f873af3337486d97baf6d5ce84d8f3705df60e35fe03cf28934762ed48",
+    "expectedInitialState": "absent",
+    "requiredOwnership": "root:wheel",
+    "allowGroupOrOtherWrite": false
+  },
+  "authorizationRight": {
+    "name": "org.plf02wh.remoteunlock.probe",
+    "definition": "remote-unlock/macos/auth-probe/right.plist",
+    "expectedInitialState": "absent",
+    "mechanisms": ["PlfAuthProbe:probe"],
+    "expectedResult": "deny"
+  },
+  "verification": {
+    "runnerSource": "private/macos-auth-probe-20261120/run-probe",
+    "runner": "/Users/Shared/plf02wh-auth-probe-20261120/run-probe",
+    "runAsRoot": false,
+    "logSubsystem": "org.plf02wh.remoteunlock.authprobe",
+    "logMessage": "AUTH_PROBE_INVOKED result=deny",
+    "requireAuthorizationHostInvocationEvidence": true,
+    "denialAloneProvesInvocation": false
+  },
+  "cleanup": {
+    "removeOnlyItemsCreatedByThisRun": true,
+    "stopOnOwnershipOrContentConflict": true,
+    "removeAuthorizationRight": "org.plf02wh.remoteunlock.probe",
+    "removeBundle": "/Library/Security/SecurityAgentPlugins/PlfAuthProbe.bundle",
+    "removeParentDirectory": false
+  },
+  "excludedChanges": [
+    "system.login.screensaver",
+    "system.login.console",
+    "screenUnlockMode",
+    "existing-authorization-plugins",
+    "keychain",
+    "FileVault",
+    "screen-lock",
+    "reboot",
+    "external-server-deployment"
+  ]
+}

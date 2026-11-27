@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key><string>org.plf02wh.remoteunlock.screen-trial-restore</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Library/Application Support/PLF02WHRemoteApproval/screen-trial/restore</string>
+        <string>check</string>
+    </array>
+    <key>RunAtLoad</key><true/>
+    <key>StartInterval</key><integer>5</integer>
+    <key>ProcessType</key><string>Background</string>
+    <key>StandardOutPath</key><string>/Library/Application Support/PLF02WHRemoteApproval/screen-trial/watch.log</string>
+    <key>StandardErrorPath</key><string>/Library/Application Support/PLF02WHRemoteApproval/screen-trial/watch.log</string>
+</dict>
+</plist>
