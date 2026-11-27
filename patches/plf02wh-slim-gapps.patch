@@ -1,0 +1,149 @@
+--- a/vendor/lineage/config/common.mk
++++ b/vendor/lineage/config/common.mk
+@@ -246,3 +246,7 @@
+ 
+ -include $(WORKSPACE)/build_env/image-auto-bits.mk
+ -include vendor/lineage/config/partner_gms.mk
++
++ifeq ($(TARGET_PRODUCT),lineage_arm64_bgN)
++PRODUCT_PACKAGES := $(filter-out ExactCalculator Jelly,$(PRODUCT_PACKAGES))
++endif
+--- a/vendor/lineage/config/common_full.mk
++++ b/vendor/lineage/config/common_full.mk
+@@ -35,3 +35,7 @@
+     fonts_customization.xml \
+     FontLatoOverlay \
+     FontRubikOverlay
++
++ifeq ($(TARGET_PRODUCT),lineage_arm64_bgN)
++PRODUCT_PACKAGES := $(filter-out Eleven Etar Profiles Recorder Aperture AudioFX,$(PRODUCT_PACKAGES))
++endif
+--- a/vendor/lineage/config/common_mobile.mk
++++ b/vendor/lineage/config/common_mobile.mk
+@@ -94,3 +94,7 @@
+     LineageBlackTheme \
+     ThemePicker \
+     ThemesStub
++
++ifeq ($(TARGET_PRODUCT),lineage_arm64_bgN)
++PRODUCT_PACKAGES := $(filter-out Backgrounds Glimpse ThemePicker,$(PRODUCT_PACKAGES))
++endif
+--- a/build/make/target/product/handheld_product.mk
++++ b/build/make/target/product/handheld_product.mk
+@@ -41,3 +41,7 @@
+ 
+ PRODUCT_PACKAGES_DEBUG += \
+     frameworks-base-overlays-debug
++
++ifeq ($(TARGET_PRODUCT),lineage_arm64_bgN)
++PRODUCT_PACKAGES := $(filter-out Browser2 Calendar DeskClock Gallery2 Music Camera2 Contacts,$(PRODUCT_PACKAGES))
++endif
+--- a/build/make/target/product/handheld_system.mk
++++ b/build/make/target/product/handheld_system.mk
+@@ -92,3 +92,7 @@
+ # Traceur for debug only
+ PRODUCT_PACKAGES_ENG += \
+     Traceur
++
++ifeq ($(TARGET_PRODUCT),lineage_arm64_bgN)
++PRODUCT_PACKAGES := $(filter-out MusicFX,$(PRODUCT_PACKAGES))
++endif
+--- a/vendor/gapps/arm64/arm64-vendor.mk
++++ b/vendor/gapps/arm64/arm64-vendor.mk
+@@ -26,3 +26,7 @@
+ endif
+ 
+ $(call inherit-product, vendor/gapps/common/common-vendor.mk)
++
++ifeq ($(TARGET_PRODUCT),lineage_arm64_bgN)
++PRODUCT_PACKAGES := $(filter-out Velvet VelvetTitan MarkupGoogle talkback SpeechServicesByGoogle,$(PRODUCT_PACKAGES))
++endif
+--- a/vendor/gapps/common/common-vendor.mk
++++ b/vendor/gapps/common/common-vendor.mk
+@@ -40,3 +40,8 @@
+ 
+ PRODUCT_SOONG_NAMESPACES += vendor/gapps/overlay
+ PRODUCT_PACKAGES += GmsOverlay GmsSettingsOverlay GmsSettingsProviderOverlay GmsSetupWizardOverlay
++
++ifeq ($(TARGET_PRODUCT),lineage_arm64_bgN)
++PRODUCT_PACKAGES := $(filter-out AndroidAutoStub Wellbeing,$(PRODUCT_PACKAGES))
++PRODUCT_COPY_FILES := $(filter-out %/wellbeing.xml,$(PRODUCT_COPY_FILES))
++endif
+--- a/device/phh/treble/lineage_arm64_bgN.mk
++++ b/device/phh/treble/lineage_arm64_bgN.mk
+@@ -16,3 +16,6 @@
+ 
+ PRODUCT_PACKAGES += 
+ 
++PRODUCT_EXTRA_VNDK_VERSIONS := 30
++PRODUCT_AVF_ENABLED := false
++
+--- a/packages/modules/Virtualization/apex/product_packages.mk
++++ b/packages/modules/Virtualization/apex/product_packages.mk
+@@ -22,6 +22,7 @@
+ # If devices supports AVF it implies that it uses non-flattened APEXes.
+ $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
+ 
++ifneq ($(TARGET_PRODUCT),lineage_arm64_bgN)
+ PRODUCT_PACKAGES += \
+     com.android.compos \
+ 
+@@ -33,6 +34,7 @@
+ PRODUCT_APEX_SYSTEM_SERVER_JARS := com.android.compos:service-compos
+ 
+ PRODUCT_SYSTEM_EXT_PROPERTIES := ro.config.isolated_compilation_enabled=true
++endif
+ 
+ PRODUCT_FSVERITY_GENERATE_METADATA := true
+ 
+--- a/build/make/target/product/handheld_system_ext.mk
++++ b/build/make/target/product/handheld_system_ext.mk
+@@ -29,3 +29,7 @@
+     StorageManager \
+     SystemUI \
+     WallpaperCropper \
++
++ifeq ($(TARGET_PRODUCT),lineage_arm64_bgN)
++PRODUCT_PACKAGES := $(filter-out AccessibilityMenu,$(PRODUCT_PACKAGES))
++endif
+--- a/build/make/target/product/telephony_product.mk
++++ b/build/make/target/product/telephony_product.mk
+@@ -22,3 +22,7 @@
+     Dialer \
+     ImsServiceEntitlement \
+     preinstalled-packages-platform-telephony-product.xml
++
++ifeq ($(TARGET_PRODUCT),lineage_arm64_bgN)
++PRODUCT_PACKAGES := $(filter-out Dialer,$(PRODUCT_PACKAGES))
++endif
+--- a/build/make/target/product/aosp_product.mk
++++ b/build/make/target/product/aosp_product.mk
+@@ -43,3 +43,7 @@
+ PRODUCT_COPY_FILES += \
+     device/sample/etc/apns-full-conf.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/apns-conf.xml
+ endif
++
++ifeq ($(TARGET_PRODUCT),lineage_arm64_bgN)
++PRODUCT_PACKAGES := $(filter-out messaging,$(PRODUCT_PACKAGES))
++endif
+--- a/build/make/target/product/aosp_base_telephony.mk
++++ b/build/make/target/product/aosp_base_telephony.mk
+@@ -17,3 +17,7 @@
+ 
+ PRODUCT_PACKAGES += \
+     messaging
++
++ifeq ($(TARGET_PRODUCT),lineage_arm64_bgN)
++PRODUCT_PACKAGES := $(filter-out messaging,$(PRODUCT_PACKAGES))
++endif
+--- a/vendor/lineage/config/telephony.mk
++++ b/vendor/lineage/config/telephony.mk
+@@ -24,3 +24,7 @@
+ # (for devices that check this)
+ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+     net.tethering.noprovisioning=true
++
++ifeq ($(TARGET_PRODUCT),lineage_arm64_bgN)
++PRODUCT_PACKAGES := $(filter-out messaging,$(PRODUCT_PACKAGES))
++endif
+ 

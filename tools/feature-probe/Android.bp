@@ -1,0 +1,17 @@
+android_app {
+    name: "Plf02whFeatureProbe",
+    srcs: ["src/**/*.java"],
+    resource_dirs: ["res"],
+    sdk_version: "34",
+    min_sdk_version: "30",
+    target_sdk_version: "34",
+    installable: false,
+    compile_dex: true,
+    privileged: false,
+    optimize: {
+        enabled: false,
+    },
+    dex_preopt: {
+        enabled: false,
+    },
+}

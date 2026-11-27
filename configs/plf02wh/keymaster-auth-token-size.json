@@ -1,0 +1,21 @@
+{
+  "target": "/vendor/lib64/libkeymaster_portable.so",
+  "sourceSha256": "1ce8cdc9b6301fbdfc87dcd68a5d0c1fe68230ebd780d7ebec80434ce507845b",
+  "sourceBytes": 343408,
+  "symbol": "keymaster::KeymasterEnforcement::GetAndValidateAuthToken",
+  "virtualAddress": 189324,
+  "fileOffset": 189324,
+  "expectedHex": "5f2000f1",
+  "replacementHex": "5f1401f1",
+  "beforeInstruction": "cmp x2, #8",
+  "afterInstruction": "cmp x2, #69",
+  "vendorImage": {
+    "sourceSha256": "6293278561cf220c99e2e10bcb0b54d53a7e9408ab6459d84410cb50b697fbe5",
+    "sourceBytes": 220258304,
+    "logicalBlock": 46,
+    "physicalBlock": 47676,
+    "fileOffset": 195281804
+  },
+  "upstreamContract": "system/keymaster/android_keymaster/keymaster_enforcement.cpp: auth_token_blob.data_length != sizeof(**auth_token)",
+  "reason": "정상 packed 인증 토큰은 69바이트인데 기존 vendor 명령은 포인터 크기인 8과 비교한다. 길이 상수만 교정하고 토큰 존재·버전·SID·인증 유형 검사는 유지한다."
+}

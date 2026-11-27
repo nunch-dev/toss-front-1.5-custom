@@ -1,0 +1,14 @@
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+cc_library_shared {
+    name: "memtrack.rk3399",
+    vendor: true,
+    relative_install_path: "hw",
+    compile_multilib: "64",
+    srcs: ["memtrack.cpp", "rk3399.cpp"],
+    header_libs: ["libhardware_headers"],
+    shared_libs: ["liblog"],
+    cflags: ["-Wall", "-Werror"],
+}

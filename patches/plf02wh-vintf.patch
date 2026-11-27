@@ -1,0 +1,31 @@
+--- a/device/phh/treble/tdgsi_arm64_ab/BoardConfig.mk
++++ b/device/phh/treble/tdgsi_arm64_ab/BoardConfig.mk
+@@ -6,3 +6,7 @@
+ else
+ BOARD_SYSTEMIMAGE_PARTITION_RESERVED_SIZE := 33554432
+ endif
++
++ifeq ($(TARGET_PRODUCT),lineage_arm64_bgN)
++DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += device/phh/treble/framework_compatibility_matrix_plf02wh.xml
++endif
+--- /dev/null
++++ b/device/phh/treble/framework_compatibility_matrix_plf02wh.xml
+@@ -0,0 +1,18 @@
++<compatibility-matrix version="1.0" type="framework">
++    <hal format="hidl" optional="true">
++        <name>rockchip.hardware.outputmanager</name>
++        <version>1.0</version>
++        <interface>
++            <name>IRkOutputManager</name>
++            <instance>default</instance>
++        </interface>
++    </hal>
++    <hal format="hidl" optional="true">
++        <name>rockchip.hardware.rockit.hw</name>
++        <version>1.0</version>
++        <interface>
++            <name>IRockitHwService</name>
++            <instance>default</instance>
++        </interface>
++    </hal>
++</compatibility-matrix>

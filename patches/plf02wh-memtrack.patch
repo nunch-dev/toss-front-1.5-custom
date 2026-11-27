@@ -1,0 +1,22 @@
+--- a/rk3399.cpp
++++ b/rk3399.cpp
+@@ -63,6 +63,10 @@
+   int len=strlen(mali_file);
+   struct dirent *dp;
+   dirp = opendir(mali_path);
++  if (dirp == NULL) {
++      return false;
++  }
++  errno = 0;
+   while ((dp = readdir(dirp)) != NULL) {
+       if(strncmp (dp->d_name,mali_file,len)==0)
+       {
+@@ -72,6 +76,8 @@
+         break;
+       }
+   }
++  const int read_errno = errno;
+   (void) closedir(dirp);
++  errno = read_errno;
+   return res;
+ }

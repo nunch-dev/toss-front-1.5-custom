@@ -1,0 +1,5 @@
+--- a/device/phh/treble/lineage_arm64_bgN.mk
++++ b/device/phh/treble/lineage_arm64_bgN.mk
+@@ -17,1 +17,1 @@
+-PRODUCT_PACKAGES += 
++PRODUCT_PACKAGES += PLF02WHKeliBoard

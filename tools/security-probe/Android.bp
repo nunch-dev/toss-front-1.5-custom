@@ -1,0 +1,57 @@
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+cc_binary {
+    name: "plf02wh-keymaster-info",
+    installable: false,
+    compile_multilib: "64",
+    srcs: ["keymaster-info.cpp"],
+    static_libs: ["android.hardware.keymaster@4.0"],
+    shared_libs: ["libcutils", "libhidlbase", "liblog", "libutils"],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}
+
+cc_binary {
+    name: "plf02wh-vold-key-storage",
+    installable: false,
+    compile_multilib: "64",
+    defaults: [
+        "vold_default_flags",
+        "vold_default_libs",
+        "keystore2_use_latest_aidl_ndk_shared",
+    ],
+    srcs: ["vold-key-storage.cpp"],
+    header_libs: ["libvold_headers"],
+    static_libs: ["libvold"],
+    shared_libs: [
+        "android.hardware.health.storage@1.0",
+        "android.hardware.health.storage-V1-ndk",
+        "android.security.maintenance-ndk",
+        "libbinder_ndk",
+        "libkeymint_support",
+    ],
+}
+
+cc_binary {
+    name: "plf02wh-auth-token-probe",
+    installable: false,
+    compile_multilib: "64",
+    srcs: ["auth-token-probe.cpp"],
+    static_libs: [
+        "android.hardware.gatekeeper@1.0",
+        "android.hardware.keymaster@4.0",
+        "libkeymaster4support",
+    ],
+    shared_libs: [
+        "android.hardware.keymaster@3.0",
+        "libbase",
+        "libcrypto",
+        "libcutils",
+        "libhardware",
+        "libhidlbase",
+        "liblog",
+        "libutils",
+    ],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}

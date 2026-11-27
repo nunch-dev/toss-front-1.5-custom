@@ -1,0 +1,31 @@
+From d1a542a997eeca842b8776e8115d1cda68e6b818 Mon Sep 17 00:00:00 2001
+From: toss-lineageos builder <builder@localhost>
+Date: Wed, 18 Nov 2026 12:00:06 +0900
+Subject: [PATCH] soong: Pass SOONG_GOMEMLIMIT and SOONG_GOGC to soong_build
+
+soong_build runs under env -i, so Go runtime memory settings cannot reach it from the caller environment. Forward them explicitly so analysis fits low-memory build hosts.
+
+Change-Id: I0143a7198c64ee663dfcb51d82abc1c33cd9559b
+---
+ ui/build/soong.go | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/ui/build/soong.go b/ui/build/soong.go
+index 8ead4c9..55b7e49 100644
+--- a/ui/build/soong.go
++++ b/ui/build/soong.go
+@@ -177,6 +177,11 @@ func (pb PrimaryBuilderFactory) primaryBuilderInvocation() bootstrap.PrimaryBuil
+ 
+ 	commonArgs = append(commonArgs, "-l", filepath.Join(pb.config.FileListDir(), "Android.bp.list"))
+ 	invocationEnv := make(map[string]string)
++	for _, name := range []string{"GOMEMLIMIT", "GOGC"} {
++		if value, ok := pb.config.Environment().Get("SOONG_" + name); ok {
++			invocationEnv[name] = value
++		}
++	}
+ 	if pb.debugPort != "" {
+ 		//debug mode
+ 		commonArgs = append(commonArgs, "--delve_listen", pb.debugPort,
+-- 
+2.43.0
+
